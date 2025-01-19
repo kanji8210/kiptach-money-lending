@@ -1,13 +1,17 @@
 // src/pages/HomePage.js
 import React from 'react';
+import splashIcon from '../../assets/splash-icon.png';
 
 const HomePage = () => {
-  return (
-    <div>
-      <h1>Welcome to the Money Lending App</h1>
-      <p>This is the homepage.</p>
-    </div>
-  );
+    return (
+      
+        <view style={styles.container}>
+            <Image source={require('../../assets/adaptive-icon.png')} style={styles.logo} />
+            <Text style={styles.text}>Please wait...</Text>
+            </view>
+    );
+
 };
 
 export default HomePage;
+ 
