@@ -1,11 +1,9 @@
 import React from 'react'
 
-const PaymentPage = () => {
+export default function dashboard() {
   return (
     <div>
       
     </div>
   )
 }
-
-export default PaymentPage
