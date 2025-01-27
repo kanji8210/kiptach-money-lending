@@ -2,10 +2,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import HomePage from '../pages/HomePage';
-import LoanPage from '../pages/LoanPage';
-import ClientPage from '../pages/ClientPage';
+import Icon from '@react-native-vector-icons/FontAwesome';
+import HomePage from './HomePage';
+import ClientPage from './ClientPage';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +21,7 @@ const NavBar = () => {
               iconName = 'home';
             } else if (route.name === 'GetLoan') {
               iconName = 'money';
-            } else if (route.name === 'MyAccount') {
+            } else if (route.name === 'ClientPage') {
               iconName = 'user';
             }
 

@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -6,7 +5,7 @@ import HomePage from './src/pages/HomePage';
 import ClientPage from './src/pages/ClientPage';
 import AppraiserPage from './src/pages/AppraiserPage';
 import SupervisorPage from './src/pages/SupervisorPage';
-import LoanPage from './src/pages/LoanPage';
+import GetLoanPage from './src/pages/GetLoanPage';
 import PaymentPage from './src/pages/PaymentPage';
 import LoginPage from './src/pages/LoginPage';
 import RegisterPage from './src/pages/RegisterPage';
@@ -30,17 +29,19 @@ const App = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomePage} />
-          <Stack.Screen name="Client" component={ClientPage} />
-          <Stack.Screen name="Appraiser" component={AppraiserPage} />
-          <Stack.Screen name="Supervisor" component={SupervisorPage} />
-          <Stack.Screen name="Loan" component={LoanPage} />
-          <Stack.Screen name="Payment" component={PaymentPage} />
-          <Stack.Screen name="NavBar" component={NavBar} options={{ headerShown: false }} />
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="Register" component={RegisterPage} />
-        </Stack.Navigator>
+        <>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomePage} />
+            <Stack.Screen name="Client" component={ClientPage} />
+            <Stack.Screen name="Appraiser" component={AppraiserPage} />
+            <Stack.Screen name="Supervisor" component={SupervisorPage} />
+            <Stack.Screen name="Loan" component={GetLoanPage} />
+            <Stack.Screen name="Payment" component={PaymentPage} />
+            <Stack.Screen name="Login" component={LoginPage} />
+            <Stack.Screen name="Register" component={RegisterPage} />
+          </Stack.Navigator>
+         
+        </>
       )}
     </NavigationContainer>
   );

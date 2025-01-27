@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ClientPage = () => {
+const Settings = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const ClientPage = () => {
   )
 }
 
-export default ClientPage
+export default Settings

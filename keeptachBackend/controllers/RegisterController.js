@@ -1,24 +1,11 @@
-// controllers/registerController.js
-const bcrypt = require('bcrypt');
-const User = require('../models/User');
-
+// controllers/RegisterController.js
 exports.register = async (req, res) => {
-  const { fullName, email, phone, county, residentialAddress, refereesID, password } = req.body;
-
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
-      fullName,
-      email,
-      phone,
-      county,
-      residentialAddress,
-      refereesID,
-      password: hashedPassword,
-    });
-
-    res.status(201).json({ message: 'Registration successful', user });
+    console.log('Registration request:', req.body);
+    // Your registration logic
+    res.status(200).json({ message: 'Registration successful' });
   } catch (error) {
-    res.status(400).json({ error: 'Registration failed', details: error.message });
+    console.error('Registration error:', error);
+    res.status(500).json({ error: 'Registration failed' });
   }
 };

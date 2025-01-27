@@ -1,8 +1,7 @@
-// src/pages/HomePage.js
 import React from 'react';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Layout from '../components/_Layout.tsx'
+import Layout from '../components/_Layout';
 
 const HomePage = () => {
   const navigation = useNavigation();
@@ -13,7 +12,6 @@ const HomePage = () => {
         <Image source={require('../../assets/adaptive-icon.png')} style={styles.logo} />
       </View>
       <View style={styles.container}>
-       
         <Text style={styles.suptitle}>About _</Text>
         <Text style={styles.text}>
           Kiptach is a Kenya-based money lending app regulated by the Central Bank of Kenya.
@@ -23,8 +21,7 @@ const HomePage = () => {
           for processing loan applications and their recovery. This information will not be
           shared with external entities or used for any other purposes, except in cases of
           default, where authorized recovery parties may be involved in accordance with the law.
-          </Text>
-         
+        </Text>
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.buttonText}>Login</Text>
@@ -42,14 +39,12 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-  
     padding: 20,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
     padding: 20,
   },
   logo: {
@@ -61,12 +56,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#333',
     marginBottom: 20,
-    alignSelf: 'left'
+    alignSelf: 'left',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
+    width: '100%'
+    
   },
   button: {
     backgroundColor: '#08a063',

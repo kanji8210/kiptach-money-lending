@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LoanPage = () => {
+const GetLoanPage = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const LoanPage = () => {
   )
 }
 
-export default LoanPage
+export default GetLoanPage
