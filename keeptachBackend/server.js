@@ -26,7 +26,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Mount routes correctly
-app.use('/api', registerRoute); // Prefix all routes with /api
+app.use('/api', register); // Prefix all routes with /api
 
 // Error handling middleware
 app.use((err, req, res, next) => {

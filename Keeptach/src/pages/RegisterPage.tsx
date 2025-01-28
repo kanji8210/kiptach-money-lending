@@ -38,21 +38,22 @@ const RegisterPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://192.168.100.1:/3000/routes/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName: form.fullName,
-          email: form.email,
-          phone: form.phone,
-          county: form.county,
-          residentialAddress: form.residentialAddress,
-          refereesID: form.refereesID,
-          password: form.password,
-        }),
-      });
+  const response = await fetch('http://192.168.100.4:3000/routes/register', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    fullName: form.fullName,
+    email: form.email,
+    phone: form.phone,
+    county: form.county,
+    residentialAddress: form.residentialAddress,
+    refereesID: form.refereesID,
+    password: form.password,
+  }),
+});
+
 
       const data = await response.json();
 
@@ -76,7 +77,6 @@ const RegisterPage = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={styles.scrollView}>
-    
         <TextInput
           style={styles.input}
           placeholder="Full Name"
@@ -168,13 +168,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     justifyContent: 'center',
-    
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
   },
   input: {
     height: 50,
