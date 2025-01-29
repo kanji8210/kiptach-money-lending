@@ -28,48 +28,54 @@ const RegisterPage = () => {
     return null;
   };
 
-  const handleRegister = async () => {
-    const validationError = validateForm();
-    if (validationError) {
-      Alert.alert('Error', validationError);
-      return;
-    }
+ const handleRegister = async () => {
+  const validationError = validateForm();
+  if (validationError) {
+    Alert.alert('Validation Error', validationError);
+    return;
+  }
 
-    setIsLoading(true);
+  setIsLoading(true);
 
+  try {
+    const response = await fetch('http://192.168.100.4:3000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fullName: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        county: form.county,
+        residentialAddress: form.residentialAddress,
+        refereesID: form.refereesID,
+        password: form.password,
+      }),
+    });
+
+    // Try parsing JSON only if the response status is ok
+    let data;
     try {
-  const response = await fetch('http://192.168.100.4:3000/routes/register', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    fullName: form.fullName,
-    email: form.email,
-    phone: form.phone,
-    county: form.county,
-    residentialAddress: form.residentialAddress,
-    refereesID: form.refereesID,
-    password: form.password,
-  }),
-});
-
-
-      const data = await response.json();
-
-      if (response.ok) {
-        Alert.alert('Success', 'Registration successful!');
-        router.push('/login'); // Redirect to login page
-      } else {
-        Alert.alert('Error', data.error || 'Registration failed');
-      }
-    } catch (error) {
-      console.error('Registration error:', error);
-      Alert.alert('Error', 'An unexpected error occurred');
-    } finally {
-      setIsLoading(false);
+      data = await response.json();
+    } catch (jsonError) {
+      throw new Error('Invalid JSON response');
     }
-  };
+
+    if (response.ok) {
+      Alert.alert('Success', 'Registration successful!');
+      router.push('/login'); // Redirect to login page
+    } else {
+      Alert.alert('Error', data.error || 'Registration failed');
+    }
+  } catch (error) {
+    console.error('Registration error:', error.message);
+    Alert.alert('Error', error.message || 'An unexpected error occurred');
+  } finally {
+    setIsLoading(false);
+  }
+};
+ 
 
   return (
     <KeyboardAvoidingView
