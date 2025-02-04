@@ -1,68 +1,35 @@
 import express from 'express';
 import cors from 'cors';
-import os from 'os';
+import dotenv from 'dotenv';
 import sequelize from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
-import creditRoutes from './routes/creditRoutes.js';
+
+dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const HOST = '172.20.10.2';  // Replace with your local IP address
 
-// Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // Parse JSON request bodies
 
-// Routes
+// Define API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/credits', creditRoutes);
 
-// Function to get local IP address
-const getLocalIP = () => {
-  const interfaces = os.networkInterfaces();
-  for (const name of Object.keys(interfaces)) {
-    for (const iface of interfaces[name]) {
-      if (iface.family === 'IPv4' && !iface.internal) {
-        return iface.address;
-      }
-    }
-  }
-  return 'localhost';
-};
-
-// Database sync and server start
+// Start server after DB connection
 const startServer = async () => {
   try {
-    const isConnected = await sequelize.authenticate();
-    
-    if (isConnected) {
-      console.log('✅ Database connection successful');
-      
-      // Sync all models
-      await sequelize.sync({ alter: true });
-      console.log('🔄 Database synced');
+    await sequelize.authenticate();
+    console.log('✅ Database connected successfully');
+    await sequelize.sync();  // Sync database models
 
-      const localIP = getLocalIP();
-      app.listen(PORT, localIP, () => {
-        console.log(`🚀 Server running on http://${localIP}:${PORT}`);
-        console.log(`🌐 Accessible from other devices on your network`);
-      });
-    }
+    app.listen(PORT, HOST, () => {
+      console.log(`🚀 Server is running on http://${HOST}:${PORT}`);
+    });
   } catch (error) {
-    console.error('❌ Server startup failed:', error);
-    process.exit(1);
+    console.error('❌ Database connection failed:', error);
+    process.exit(1); // Exit on failure
   }
 };
 
-// Start the application
 startServer();
-
-// Basic test route
-app.get('/', (req, res) => {
-  res.send('KeepTach Backend Operational');
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal Server Error' });
-});

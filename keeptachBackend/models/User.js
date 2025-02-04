@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
-import bcrypt from 'bcrypt';
 
 const User = sequelize.define('User', {
   userId: {
@@ -16,56 +15,24 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-      isEmail: true,
-    },
   },
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  role: {
-    type: DataTypes.ENUM('borrower', 'appraiser', 'admin'),
-    defaultValue: 'borrower',
   },
   county: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  refereeId: {
-    type: DataTypes.INTEGER,
+  referralCode: {
+    type: DataTypes.STRING,
     allowNull: true,
-    references: {
-      model: 'Users',
-      key: 'userId',
-    },
   },
-  registrationDate: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-  },
-}, {
-  hooks: {
-    beforeCreate: async (user) => {
-      if (user.password) {
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
-      }
-    },
-  },
+  // Add other fields as necessary
 });
-
-User.prototype.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
 
 export default User;
